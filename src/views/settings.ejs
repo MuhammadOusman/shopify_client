@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="https://unpkg.com/@shopify/polaris@10.49.1/build/esm/styles.css" />
+</head>
+<body style="padding: 2rem;">
+  <div class="Polaris-Page">
+    <div class="Polaris-Page-Header Polaris-Page-Header--hasActionMenu">
+      <div class="Polaris-Page-Header__Row">
+        <div class="Polaris-Page-Header__TitleWrapper">
+          <h1 class="Polaris-DisplayText Polaris-DisplayText--sizeLarge">Processor Fee Settings</h1>
+        </div>
+      </div>
+    </div>
+    <div class="Polaris-Layout">
+      <div class="Polaris-Layout__Section">
+        <div class="Polaris-Card">
+          <div class="Polaris-Card__Section">
+            <form action="/processor/settings" method="post">
+              <div class="Polaris-FormLayout">
+                <div class="Polaris-FormLayout__Item">
+                  <div class="Polaris-Labelled--hidden">
+                    <div class="Polaris-Labelled__LabelWrapper">
+                      <label id="commissionRateLabel" for="commissionRate" class="Polaris-Label__Text">Commission Rate</label>
+                    </div>
+                    <div class="Polaris-Select">
+                      <select id="commissionRate" name="commissionRate" class="Polaris-Select__Input" aria-invalid="false">
+                        <% for(let i = 0.5; i <= 4; i += 0.5) { %>
+                          <option value="<%= i %>" <%= commissionRate == i ? 'selected' : '' %>><%= i.toFixed(1) %>%</option>
+                        <% } %>
+                      </select>
+                      <div class="Polaris-Select__Content" aria-hidden="true">
+                        <span class="Polaris-Select__SelectedOption"><%= commissionRate.toFixed(1) %>%</span>
+                        <span class="Polaris-Select__Icon">
+                          <span class="Polaris-Icon">
+                            <svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true">
+                              <path d="M10 16l-4-4h8l-4 4zm0-12l4 4H6l4-4z"></path>
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                      <div class="Polaris-Select__Backdrop"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="Polaris-FormLayout__Item">
+                  <button type="submit" class="Polaris-Button Polaris-Button--primary">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="Polaris-Layout__Section">
+        <div class="Polaris-Card">
+          <div class="Polaris-Card__Header">
+            <h2 class="Polaris-Heading">Current Month's Usage Charges</h2>
+          </div>
+          <div class="Polaris-Card__Section">
+            <p>Usage charges this month: $<%= usageCharges.toFixed(2) %></p>
+          </div>
+        </div>
+      </div>
+      <div class="Polaris-Layout__Section">
+        <div class="Polaris-Card">
+          <div class="Polaris-Card__Header">
+            <h2 class="Polaris-Heading">Last 30 Processed Orders</h2>
+          </div>
+          <div class="Polaris-Card__Section">
+            <div class="Polaris-DataTable">
+              <div class="Polaris-DataTable__ScrollContainer">
+                <table class="Polaris-DataTable__Table">
+                  <thead>
+                    <tr>
+                      <th class="Polaris-DataTable__Cell Polaris-DataTable__Cell--header">Order ID</th>
+                      <th class="Polaris-DataTable__Cell Polaris-DataTable__Cell--header">Total Price</th>
+                      <th class="Polaris-DataTable__Cell Polaris-DataTable__Cell--header">Fee</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(const order of processedOrders) { %>
+                      <tr class="Polaris-DataTable__TableRow">
+                        <td class="Polaris-DataTable__Cell"><%= order.id %></td>
+                        <td class="Polaris-DataTable__Cell"><%= order.total_price %></td>
+                        <td class="Polaris-DataTable__Cell"><%= order.fee.toFixed(2) %></td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Polaris-Layout__Section">
+        <div class="Polaris-Card">
+          <div class="Polaris-Card__Section">
+            <form action="/processor/reconnect" method="post" style="display: inline-block; margin-right: 10px;">
+              <button type="submit" class="Polaris-Button">Reconnect App</button>
+            </form>
+            <form action="/processor/trigger-billing" method="post" style="display: inline-block;">
+              <button type="submit" class="Polaris-Button Polaris-Button--primary">Trigger Billing Cycle</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
