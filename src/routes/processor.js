@@ -62,7 +62,7 @@ router.post('/trigger-billing', authMiddleware, async (req, res) => {
   try {
     const session = await shopify.config.sessionStorage.loadSession(shopify.session.getOfflineId(shopData.shop));
     console.log('Session loaded for billing trigger:', session ? 'Found' : 'Not Found');
-    console.log('Shop pending_balance for billing trigger:', shopData.pending_balance); // Added log
+    console.log('Shop pending_balance for billing trigger:', shopData.pending_balance);
     if (!shopData.subscription_line_item_id) {
       console.error('No subscription line item ID found for shop:', shopData.shop);
       return res.status(400).send('No subscription line item ID found. Please reinstall the app.');

@@ -11,7 +11,7 @@ const shopify = shopifyApi({
   isEmbeddedApp: true,
   sessionStorage: new PGSessionStorage(),
   future: {
-    v3_oauth_cookie_secure: true, // Force true for consistent secure cookie handling with Ngrok
+    v3_oauth_cookie_secure: true,
   },
 });
 

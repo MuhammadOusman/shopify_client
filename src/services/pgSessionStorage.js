@@ -25,7 +25,6 @@ class PGSessionStorage {
       return undefined;
     }
     const session = rows[0];
-    // Manually construct the session object to match what shopify-api-js expects
     const result = {
         id: session.id,
         shop: session.shop,

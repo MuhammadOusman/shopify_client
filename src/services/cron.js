@@ -3,7 +3,6 @@ const axios = require('axios');
 const db = require('../db');
 const shopify = require('./shopify');
 
-// Schedule a job to run every day at midnight
 cron.schedule('0 0 * * *', async () => {
   console.log('Running daily job to process pending balances...');
   const { rows } = await db.query('SELECT * FROM "shops" WHERE "subscription_line_item_id" IS NOT NULL');

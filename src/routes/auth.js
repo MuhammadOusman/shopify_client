@@ -24,7 +24,7 @@ router.get('/auth/callback', async (req, res) => {
   console.log('--- /auth/callback route hit ---');
   console.log('Request Query:', req.query);
   console.log('Request Headers (Cookie):', req.headers.cookie);
-  console.log('Parsed Cookies (req.cookies):', req.cookies); // Added for debugging
+  console.log('Parsed Cookies (req.cookies):', req.cookies);
 
   // If charge_id is present, it means the user is returning from subscription approval
   if (req.query.charge_id) {
